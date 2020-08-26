@@ -34,22 +34,15 @@ public class Program {
 			System.out.print("Check-out date (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
 			
-			//exemplo de forma de verificação muito ruim
-			Date now = new Date();
-			if(checkIn.before(now) || checkOut.before(now)) {
-				System.out.println("Error in reservation: Reservation date for update must be future dates");	
-			}else if(!checkOut.after(checkIn)){
-				System.out.println("Error in reservation: Check-out date must be after check-in date");
+			//exemplo de forma de verificação ruim
+			String error = res.updateDates(checkIn, checkOut);
+			if(error != null) {
+				System.out.println("Error in reservation: " + error);
 			}else {
-				res.updateDates(checkIn, checkOut);
 				System.out.println(res);
 			}
 		}
-		
-		
-		
-	
-		
+
 		sc.close();
 	}
 

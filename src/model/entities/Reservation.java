@@ -42,10 +42,20 @@ public class Reservation {
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS); //convertendo a diferença em milisegundos para dias
 	}
 	
-	public void updateDates(Date checkIn, Date checkOut) {
+	public String updateDates(Date checkIn, Date checkOut) {
+		//exemplo de forma de verificação ruim
+		Date now = new Date();
+		if(checkIn.before(now) || checkOut.before(now)) {
+			return "Error in reservation: Reservation date for update must be future dates";	
+		}
+		if (!checkOut.after(checkIn)){
+			return"Error in reservation: Check-out date must be after check-in date";
+		}
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
+		return null;
 	}
+	
 	@Override
 	public String toString() {
 		return "Room " 
